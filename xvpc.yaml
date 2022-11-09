@@ -1,0 +1,6 @@
+apiVersion: aws.platformref.upbound.io/v1alpha1
+kind: XVPC
+metadata:
+  name: vpc-using-environment-config
+spec:
+  vpcName: environment-config-test

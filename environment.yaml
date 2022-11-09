@@ -1,0 +1,17 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+data:
+  bool: false
+  complex:
+    a: b
+    c:
+      d: e
+  int: 123
+  list:
+  - a
+  - b
+  - c
+  region: eu-central-1
+  simple: value
+kind: EnvironmentConfig
+metadata:
+  name: example-environment

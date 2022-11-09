@@ -1,0 +1,30 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xvpcs.aws.platformref.upbound.io
+  labels:
+    provider: aws
+spec:
+  environment:
+    environmentConfigs:
+      - ref:
+          name: example-environment
+  compositeTypeRef:
+    apiVersion: aws.platformref.upbound.io/v1alpha1
+    kind: XVPC
+  resources:
+    - name: vpc
+      base:
+        apiVersion: ec2.aws.upbound.io/v1beta1
+        kind: VPC
+        spec:
+          forProvider:
+            cidrBlock: 172.16.0.0/16
+      patches:
+        - fromFieldPath: spec.vpcName
+          toFieldPath: spec.forProvider.tags.Name
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required
