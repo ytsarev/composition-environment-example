@@ -28,3 +28,24 @@ spec:
           toFieldPath: spec.forProvider.region
           policy:
             fromFieldPath: Required
+        - type: ToEnvironmentFieldPath
+          fromFieldPath: status.atProvider.id
+          toFieldPath: vpcId
+    - name: subnet
+      base:
+        apiVersion: ec2.aws.upbound.io/v1beta1
+        kind: Subnet
+        spec:
+          forProvider:
+            cidrBlock: 172.16.20.0/24
+      patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: vpcId
+          toFieldPath: spec.forProvider.vpcId
+          policy:
+            fromFieldPath: Required
