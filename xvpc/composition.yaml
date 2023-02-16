@@ -21,6 +21,11 @@ spec:
           forProvider:
             cidrBlock: 172.16.0.0/16
       patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: tags
+          toFieldPath: spec.forProvider.tags
+          policy:
+            fromFieldPath: Required
         - fromFieldPath: spec.vpcName
           toFieldPath: spec.forProvider.tags.Name
         - type: FromEnvironmentFieldPath
@@ -39,6 +44,11 @@ spec:
           forProvider:
             cidrBlock: 172.16.20.0/24
       patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: tags
+          toFieldPath: spec.forProvider.tags
+          policy:
+            fromFieldPath: Required
         - type: FromEnvironmentFieldPath
           fromFieldPath: region
           toFieldPath: spec.forProvider.region

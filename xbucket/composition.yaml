@@ -1,0 +1,32 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xbuckets.aws.platformref.upbound.io
+  labels:
+    provider: aws
+spec:
+  environment:
+    environmentConfigs:
+      - ref:
+          name: example-environment
+  compositeTypeRef:
+    apiVersion: aws.platformref.upbound.io/v1alpha1
+    kind: XBucket
+  resources:
+    - name: bucket
+      base:
+        apiVersion: s3.aws.upbound.io/v1beta1
+        kind: Bucket
+      patches:
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: tags
+          toFieldPath: spec.forProvider.tags
+          policy:
+            fromFieldPath: Required
+        - fromFieldPath: spec.bucketName
+          toFieldPath: spec.forProvider.tags.Name
+        - type: FromEnvironmentFieldPath
+          fromFieldPath: region
+          toFieldPath: spec.forProvider.region
+          policy:
+            fromFieldPath: Required

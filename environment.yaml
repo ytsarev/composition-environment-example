@@ -12,6 +12,11 @@ data:
   - c
   region: eu-central-1
   simple: value
+  tags:
+    common: set
+    of: tags
+    it: works
+    hell: yeah
 kind: EnvironmentConfig
 metadata:
   name: example-environment
